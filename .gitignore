@@ -5,9 +5,17 @@
 /vendor
 .env
 .env.backup
+.vue.env*
+!.vue.env.example
 .phpunit.result.cache
 docker-compose.override.yml
 Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+
+/public/css/**
+!/public/css/.gitkeep
+/public/js/**
+!/public/js/.gitkeep
+/public/mix-manifest.json

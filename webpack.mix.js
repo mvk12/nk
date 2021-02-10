@@ -1,4 +1,39 @@
 const mix = require('laravel-mix');
+const webpack = require('webpack');
+
+require('dotenv').config({ path: process.env.ENV_FILE });
+
+let _config = {
+    NODE_ENV: JSON.stringify(process.env.NODE_ENV)
+}
+
+Object.entries(process.env || {}).map(([key, val], idx) => {
+    if(key.startsWith('VUE_APP_')) {
+        return [key, val];
+    }
+    else {
+        return null;
+    }
+}).filter((v, idx) => {
+    return (!!v)
+}).forEach(([key, val]) => {
+    _config[key] = JSON.stringify(val)
+})
+
+mix.webpackConfig({
+    resolve: {
+        extensions: ['.js', '.vue'],
+        alias: {
+            '@': __dirname + '/resources/js'
+        }
+    },
+    plugins: [
+        new webpack.DefinePlugin({
+            'process.env': _config
+        })
+    ],
+})
+
 
 /*
  |--------------------------------------------------------------------------
@@ -12,6 +47,8 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-    .postCss('resources/css/app.css', 'public/css', [
+    .vue()
+    .sass('resources/css/app.scss', 'public/css', [
         //
-    ]);
+    ])
+    .extract(['axios', 'vue', 'vue-router', 'vuex']);
