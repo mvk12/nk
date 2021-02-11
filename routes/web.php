@@ -34,7 +34,26 @@ Route::group(['prefix' => '/pdf/examples'], function () {
     });
 
     Route::get('/account_status_report', function () {
-        $pdf = PDF::loadView('pdf.examples.03.layout');
+
+        $faker = Faker\Factory::create();
+
+        $rows = \collect();
+        for ($i = 0; $i < $faker->numberBetween(5, 20); $i++) {
+            $rows->add([
+                'date' => \Carbon\Carbon::createFromTimestamp($faker->dateTimeThisMonth()->getTimestamp()),
+                'desc' => $faker->sentence(),
+                'amount' => $faker->randomFloat(2, 700.0, 3500.0)
+            ]);
+        }
+
+        $sum = $rows->pluck('amount')->sum();
+
+        // return view('pdf.examples.03.layout', compact('rows', 'sum'));
+
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->getDomPDF()->set_option('enable_php', true);
+        $pdf->loadView('pdf.examples.03.layout', compact('rows', 'sum'));
+
         return $pdf->stream('account_status_report.pdf');
     });
 });

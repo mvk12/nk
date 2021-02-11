@@ -1,8 +1,10 @@
 <header class="header">
-  <img src="{{ asset('img/SampleLogo.png') }}" alt="An excelent sample logo for bussiness" class="header-logo" />
-  <p class="title">Empresa patito S.A. de C.V.!</p>
-  @if(isset($subtitle))
-  <h2 class="subtitle">{{ $subtitle }}</h2>
-  @endif
+  <div style="width: 30% !important; display: inline-block;">
+    <img src="{{ asset('img/SampleLogo.png') }}" alt="An excelent sample logo for bussiness" class="header-logo" />
+  </div>
+  <div style="width: 69% !important; display: inline-block; text-align: right;">
+    <b>
+      ESTADO DE CUENTA
+    </b>
+  </div>
 </header>
-<hr>

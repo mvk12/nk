@@ -83,4 +83,7 @@
   'notosans-regular' => array(
     'normal' => $fontDir . '/notosans_regular_normal_7c117f99da46d163a631449dbe05370e',
   ),
+  'notosans-bold' => array(
+    'normal' => $fontDir . '/notosans_bold_normal_8b4cb098d9edb38b8614ce66649d39d2',
+  ),
 ) ?>
